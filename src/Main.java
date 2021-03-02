@@ -7,11 +7,14 @@ public class Main {
         System.out.println("Welcome to Blind Man's Bluff");
         boolean play, invalid, guessedHigher = false;
         String response;
-        int compValue, userValue, nWin = 0, nLoss = 0, nTie = 0;
+        int compValue, userValue, nWin = 0, nLoss = 0;
         Scanner sc= new Scanner(System.in);
         play = true;
         Random rand = new Random();
-        while(play) {
+        //variable to ensure the user does not play more than is in the deck
+        int i = 0;
+        //updated while loop from starter code to reflect the amount of rounds possible for 1 deck
+        while(i <= 25 && play) {
             // assign values to computer and user
             compValue = rand.nextInt(52);
             userValue = rand.nextInt(52);
@@ -35,6 +38,7 @@ public class Main {
                     System.out.println("Invalid response...");
                     invalid = true;
                 }
+                i++;
             }
 
             // determine outcome
@@ -44,15 +48,12 @@ public class Main {
             } else if((compValue > userValue && guessedHigher) || (compValue < userValue && !guessedHigher)) {
                 System.out.println("Sorry, you're wrong:");
                 nLoss++;
-            } else {
-                System.out.println("It's a tie:");
-                nTie++;
             }
             System.out.println("your value is "+ userValue);
 
             // ask user to play again
             invalid = true;
-            while(invalid) {
+            while(invalid && i <= 25) {
                 System.out.println("Play again? (Y/N)");
                 response=sc.next();
                 if (response.toUpperCase().charAt(0) == 'Y') {
@@ -73,7 +74,7 @@ public class Main {
 
         // output stats
         System.out.println("Thanks for playing!");
-        System.out.println("Your record was " + nWin + "-" + nLoss + "-" + nTie +" (W-L-T)" );
+        System.out.println("Your record was " + nWin + "-" + nLoss + "-" +" (W-L)" );
     }
 
     public static void main(String[] args) {
