@@ -32,8 +32,8 @@ public class Deck {
         for (int i = 0; i < this.cardsLeft * this.cardsLeft; i++)
         {
             //randomly generate two numbers
-            swap1 = randGen.nextInt(cardsLeft - 1);
-            swap2 = randGen.nextInt(cardsLeft - 1);
+            swap1 = randGen.nextInt(cardsLeft);
+            swap2 = randGen.nextInt(cardsLeft);
             //swap cards at indices pf two number
             Collections.swap(this.cards, swap1, swap2);
         }
