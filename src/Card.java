@@ -38,27 +38,47 @@ public class Card {
         this.rank = rank;
         this.suit = suit;
     }
-
-    public String[] getRanks()
+    //alternate constructor
+    public Card(int rank, int suit)
     {
-        return this.ranks;
-    }
-    public String[] getSuits()
-    {
-        return this.suits;
+        this.rank = rank;
+        this.suit = suit;
     }
 
+    public int getRank()
+    {
+        return this.rank;
+    }
+    public int getSuit()
+    {
+        return this.suit;
+    }
+
+    //toString method
     @Override
     public String toString()
     {
         return String.format("%s of %s", this.ranks[this.rank], this.suits[this.suit]);
     }
 }
-//public class CardComparator implements Comparator<Card>
-//{
-//    @Override
-//    public int compare(Card compValue, Card userValue)
-//    {
-//        return Integer.compare();
-//    }
-//}
+//card comparator
+class CardComparator implements Comparator<Card>
+{
+    @Override
+    //receives 2 parameters that are cards and compares them based on rank and suit
+    public int compare(Card compCard, Card userCard)
+    {
+        int RankCompare = Integer.compare(compCard.getRank(), userCard.getRank());
+        int SuitCompare = Integer.compare(compCard.getSuit(), userCard.getSuit());
+        //if rank is the same, compare suits and return the SuitCompare value
+        if(RankCompare == 0)
+        {
+            return ((RankCompare == 0) ? SuitCompare : RankCompare);
+        }
+        //if rank is different return the RankCompare value
+        else
+        {
+            return RankCompare;
+        }
+    }
+}

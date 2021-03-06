@@ -1,4 +1,3 @@
-import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -7,17 +6,22 @@ public class Main {
         System.out.println("Welcome to Blind Man's Bluff");
         boolean play, invalid, guessedHigher = false;
         String response;
-        int compValue, userValue, nWin = 0, nLoss = 0;
+        int nWin = 0, nLoss = 0;
         Scanner sc= new Scanner(System.in);
         play = true;
-        Random rand = new Random();
+        Card compValue;
+        Card userValue;
         //variable to ensure the user does not play more than is in the deck
         int i = 0;
+        //creates deck
+        Deck deck = new Deck();
+        //shuffles deck
+        deck.shuffle();
         //updated while loop from starter code to reflect the amount of rounds possible for 1 deck
         while(i <= 25 && play) {
             // assign values to computer and user
-            compValue = rand.nextInt(52);
-            userValue = rand.nextInt(52);
+            compValue = deck.remove();
+            userValue = deck.remove();
 
             // get user's bet
             System.out.println( "Computer's value is "+ compValue);
@@ -42,10 +46,11 @@ public class Main {
             }
 
             // determine outcome
-            if((compValue < userValue && guessedHigher) || (compValue > userValue && !guessedHigher)) {
+            CardComparator cardCompare = new CardComparator();
+            if((cardCompare.compare(compValue, userValue) < 0 && guessedHigher) || (cardCompare.compare(compValue, userValue) > 0  && !guessedHigher)) {
                 System.out.println("Great! You're right:");
                 nWin++;
-            } else if((compValue > userValue && guessedHigher) || (compValue < userValue && !guessedHigher)) {
+            } else if((cardCompare.compare(compValue, userValue) > 0  && guessedHigher) || (cardCompare.compare(compValue, userValue) < 0  && !guessedHigher)) {
                 System.out.println("Sorry, you're wrong:");
                 nLoss++;
             }
